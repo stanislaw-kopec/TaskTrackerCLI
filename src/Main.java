@@ -2,6 +2,7 @@ public class Main {
     public static void main(String[] args) {
         Service service = new Service();
 
+
         if(args.length < 1) {
             System.out.println("Error please provide at least one command.");
             return;
@@ -10,7 +11,7 @@ public class Main {
         String command = args[0];
 
         switch (command) {
-            case "add" -> service.addTask("Ala ma kota");
+            case "add" -> service.addTask("Nowy");
             case "update" -> System.out.println("Updating task...");
             case "delete" -> System.out.println("Deleting task...");
             case "mark-in-progress" -> System.out.println("Marking task in progress...");

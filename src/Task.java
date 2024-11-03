@@ -28,11 +28,23 @@ public class Task {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = Status.valueOf(status);
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = LocalDateTime.parse(createdAt);
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = LocalDateTime.parse(updatedAt);
     }
 }

@@ -1,14 +1,65 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Service {
-    ArrayList<Task> tasks = new ArrayList<>();
+    //ArrayList<Task> tasks = new ArrayList<>();
+    ArrayList<Task> tasks = unloadJSON();
 
     public void addTask(String description) {
         System.out.println("Adding task...");
         Task task = new Task(description);
         tasks.add(task);
+    }
+
+    public static ArrayList<Task> unloadJSON() {
+        System.out.println("Downloading data from JSON...");
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        StringBuilder jsonBuilder = new StringBuilder();
+
+        try(BufferedReader reader = new BufferedReader(new FileReader("tasks.json"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String json = jsonBuilder.toString().trim();
+
+        if (json.startsWith("[") && json.endsWith("]")) {
+            json = json.substring(1,json.length() - 1);
+        }
+
+        String[] taskJsonArray = json.split("\\},\\s*\\{");
+
+        for (String taskJson : taskJsonArray) {
+            taskJson = taskJson.trim();
+            if (!taskJson.startsWith("{")) taskJson = "{" + taskJson;
+            if (!taskJson.endsWith("}")) taskJson = taskJson + "}";
+
+            String description = extractJsonValue(taskJson, "description");
+            String status = extractJsonValue(taskJson, "status");
+            //String description = extractJsonValue(taskJson, "description");
+
+            tasks.add(new Task(description));
+        }
+
+        return tasks;
+    }
+
+    private static String extractJsonValue(String json, String key) {
+        String[] parts = json.split("\"" + key + "\"\\s*:\\s*");
+        if (parts.length > 1) {
+            String valuePart = parts[1].split(",|\\}")[0].trim();
+            if (valuePart.startsWith("\"") && valuePart.endsWith("\"")) {
+                return valuePart.substring(1,valuePart.length() - 1);
+            } else {
+                return valuePart;
+            }
+        }
+        return "";
     }
 
     public void saveToJSON() {
