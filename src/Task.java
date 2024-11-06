@@ -20,16 +20,20 @@ public class Task {
         return id;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public Status getStatus() {
-        return status;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setStatus(String status) {
-        this.status = Status.valueOf(status);
+    public Status getStatus() {
+        return status;
     }
 
     public LocalDateTime getCreatedAt() {

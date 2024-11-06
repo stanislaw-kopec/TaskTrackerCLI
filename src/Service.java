@@ -1,8 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Service {
-    //ArrayList<Task> tasks = new ArrayList<>();
     ArrayList<Task> tasks = unloadJSON();
 
     public void addTask(String description) {
@@ -11,7 +11,16 @@ public class Service {
         tasks.add(task);
     }
 
-    public static ArrayList<Task> unloadJSON() {
+    public void updateTask(String id, String description) {
+        Task task = findTask(id).orElseThrow(() -> new IllegalStateException("Task with " + id + " not found."));
+        task.setDescription(description);
+    }
+
+    public Optional<Task> findTask(String id) {
+        return tasks.stream().filter((task) -> task.getId() == Integer.parseInt(id)).findFirst();
+    }
+
+    private static ArrayList<Task> unloadJSON() {
         System.out.println("Downloading data from JSON...");
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -41,9 +50,14 @@ public class Service {
 
             String description = extractJsonValue(taskJson, "description");
             String status = extractJsonValue(taskJson, "status");
-            //String description = extractJsonValue(taskJson, "description");
+            String createdAt = extractJsonValue(taskJson, "createdAt");
+            String updatedAt = extractJsonValue(taskJson, "updatedAt");
 
-            tasks.add(new Task(description));
+            Task task = new Task(description);
+            task.setStatus(Status.fromString(status));
+            task.setCreatedAt(createdAt);
+            task.setUpdatedAt(updatedAt);
+            tasks.add(task);
         }
 
         return tasks;

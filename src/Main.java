@@ -12,7 +12,7 @@ public class Main {
 
         switch (command) {
             case "add" -> service.addTask("Nowy");
-            case "update" -> System.out.println("Updating task...");
+            case "update" -> service.updateTask("1","Marta ma psa.");
             case "delete" -> System.out.println("Deleting task...");
             case "mark-in-progress" -> System.out.println("Marking task in progress...");
             case "mark-done" -> System.out.println("Marking task done...");
