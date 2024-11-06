@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -14,10 +15,57 @@ public class Service {
     public void updateTask(String id, String description) {
         Task task = findTask(id).orElseThrow(() -> new IllegalStateException("Task with " + id + " not found."));
         task.setDescription(description);
+        task.setUpdatedAt();
+    }
+
+    public void deleteTask(String id) {
+        System.out.println("Task where id is " + id + " was deleted.");
+
+        tasks.remove(Integer.parseInt(id));
     }
 
     public Optional<Task> findTask(String id) {
         return tasks.stream().filter((task) -> task.getId() == Integer.parseInt(id)).findFirst();
+    }
+
+    public static void displayTask(Task task) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        System.out.println("Id: " + task.getId());
+        System.out.println("Description: " + task.getDescription());
+        System.out.println("Status: " + task.getStatus());
+        System.out.println("Created at: " + task.getCreatedAt().format(format));
+        System.out.println("Updated at: " + task.getUpdatedAt().format(format) + "\n");
+    }
+
+    public void listAllTasks() {
+        for (Task task : tasks) {
+            displayTask(task);
+        }
+    }
+
+    public void listDoneTasks() {
+        for (Task task : tasks) {
+            if (task.getStatus().toString().equals("Done")) {
+                displayTask(task);
+            }
+        }
+    }
+
+    public void listInProgressTasks() {
+        for (Task task : tasks) {
+            if (task.getStatus().toString().equals("In progress")) {
+                displayTask(task);
+            }
+        }
+    }
+
+    public void listTodoTasks() {
+        for (Task task : tasks) {
+            if (task.getStatus().toString().equals("Todo")) {
+                displayTask(task);
+            }
+        }
     }
 
     private static ArrayList<Task> unloadJSON() {

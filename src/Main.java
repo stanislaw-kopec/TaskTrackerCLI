@@ -12,17 +12,17 @@ public class Main {
 
         switch (command) {
             case "add" -> service.addTask("Nowy");
-            case "update" -> service.updateTask("1","Marta ma psa.");
-            case "delete" -> System.out.println("Deleting task...");
+            case "update" -> service.updateTask("1","Marta ma kota i psa.");
+            case "delete" -> service.deleteTask("3");
             case "mark-in-progress" -> System.out.println("Marking task in progress...");
             case "mark-done" -> System.out.println("Marking task done...");
             case "list" -> {
                 command = args.length > 1 ? args[1] : "";
                 switch (command) {
-                case "" -> System.out.println("Listing all tasks...");
-                case "done" -> System.out.println("Listing done tasks...");
-                case "todo" -> System.out.println("Listing todo tasks...");
-                case "in-progress" -> System.out.println("Listing in tasks...");
+                case "" -> service.listAllTasks();
+                case "done" -> service.listDoneTasks();
+                case "todo" -> service.listTodoTasks();
+                case "in-progress" -> service.listInProgressTasks();
                 default -> throw new IllegalStateException("Unexpected value: " + command);}
             }
             default -> throw new IllegalStateException("Unexpected value: " + command);
