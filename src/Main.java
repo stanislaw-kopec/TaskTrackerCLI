@@ -11,11 +11,41 @@ public class Main {
         String command = args[0];
 
         switch (command) {
-            case "add" -> service.addTask("Nowy");
-            case "update" -> service.updateTask("1","Marta ma kota i psa.");
-            case "delete" -> service.deleteTask("3");
-            case "mark-in-progress" -> System.out.println("Marking task in progress...");
-            case "mark-done" -> System.out.println("Marking task done...");
+            case "add" -> {
+                if(args.length < 2) {
+                    System.out.println("Error please provide at least two command.");
+                    return;
+                }
+                service.addTask(args[1]);
+            }
+            case "update" -> {
+                if(args.length < 3) {
+                    System.out.println("Error please provide at least three command.");
+                    return;
+                }
+                service.updateTask(args[1],args[2]);
+            }
+            case "delete" -> {
+                if(args.length < 2) {
+                    System.out.println("Error please provide at least two command.");
+                    return;
+                }
+                service.deleteTask(args[1]);
+            }
+            case "mark-in-progress" -> {
+                if(args.length < 2) {
+                    System.out.println("Error please provide at least two command.");
+                    return;
+                }
+                service.markTaskToInProgress(args[1]);
+            }
+            case "mark-done" -> {
+                if(args.length < 2) {
+                    System.out.println("Error please provide at least two command.");
+                    return;
+                }
+                service.markTaskToDone(args[1]);
+            }
             case "list" -> {
                 command = args.length > 1 ? args[1] : "";
                 switch (command) {

@@ -68,13 +68,31 @@ public class Service {
         }
     }
 
+    public void markTaskToInProgress(String id) {
+        Task task = findTask(id).orElseThrow(() -> new IllegalStateException("Task with " + id + " not found."));
+        task.setUpdatedAt();
+        task.setStatus(Status.IN_PROGRESS);
+    }
+
+    public void markTaskToDone(String id) {
+        Task task = findTask(id).orElseThrow(() -> new IllegalStateException("Task with " + id + " not found."));
+        task.setUpdatedAt();
+        task.setStatus(Status.DONE);
+    }
+
     private static ArrayList<Task> unloadJSON() {
-        System.out.println("Downloading data from JSON...");
         ArrayList<Task> tasks = new ArrayList<>();
+
+        File jsonFile = new File("tasks.json");
+
+        if (!jsonFile.exists()) {
+            System.out.println("Json file initialization...");
+            return tasks;
+        }
 
         StringBuilder jsonBuilder = new StringBuilder();
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("tasks.json"))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 jsonBuilder.append(line);
@@ -84,6 +102,12 @@ public class Service {
         }
 
         String json = jsonBuilder.toString().trim();
+
+        if(json.isEmpty()){
+            return tasks;
+        }
+
+        System.out.println("Downloading data from JSON...");
 
         if (json.startsWith("[") && json.endsWith("]")) {
             json = json.substring(1,json.length() - 1);
