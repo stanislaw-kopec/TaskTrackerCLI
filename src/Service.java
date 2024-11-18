@@ -13,15 +13,24 @@ public class Service {
     }
 
     public void updateTask(String id, String description) {
+        try {
+            int taskId = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid task ID: " + id);
+            return;
+        }
         Task task = findTask(id).orElseThrow(() -> new IllegalStateException("Task with " + id + " not found."));
         task.setDescription(description);
         task.setUpdatedAt();
     }
 
     public void deleteTask(String id) {
-        System.out.println("Task where id is " + id + " was deleted.");
-
-        tasks.remove(Integer.parseInt(id));
+        try {
+            tasks.remove(Integer.parseInt(id));
+            System.out.println("Task where id is " + id + " was deleted.");
+        } catch (NumberFormatException e) {
+            System.out.println("Incorrect id: " + id);
+        }
     }
 
     public Optional<Task> findTask(String id) {
