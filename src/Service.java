@@ -30,6 +30,8 @@ public class Service {
             System.out.println("Task where id is " + id + " was deleted.");
         } catch (NumberFormatException e) {
             System.out.println("Incorrect id: " + id);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("This id: " + id + " does not exist.");
         }
     }
 
