@@ -29,7 +29,7 @@ All tasks are stored in a `tasks.json` file to ensure persistence between progra
 git clone https://github.com/stanislaw-kopec/TaskTrackerCLI.git
 ```
 ```bash
-cd task-manager-cli
+cd TaskTrackerCLI
 ```
 2. Compile the project
 ```bash
