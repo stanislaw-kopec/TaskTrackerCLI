@@ -5,6 +5,7 @@ public class Main {
 
         if(args.length < 1) {
             System.out.println("Error please provide at least one command.");
+            printHelp();
             return;
         }
 
@@ -55,8 +56,24 @@ public class Main {
                 case "in-progress" -> service.listInProgressTasks();
                 default -> throw new IllegalStateException("Unexpected value: " + command);}
             }
-            default -> throw new IllegalStateException("Unexpected value: " + command);
+            case "help" -> printHelp();
+            default -> {
+                System.out.println("Error: unknown command \"" + command + "\"\n");
+                printHelp();
+            }
+
         }
         service.saveToJSON();
+    }
+
+    private static void printHelp() {
+        System.out.println("Available commands:");
+        System.out.println("  add <description>               - Add a new task with the given description.");
+        System.out.println("  update <id> <new_description>   - Update the description of the task with the given ID.");
+        System.out.println("  delete <id>                     - Delete the task with the given ID.");
+        System.out.println("  mark-in-progress <id>           - Mark the task with the given ID as In Progress.");
+        System.out.println("  mark-done <id>                  - Mark the task with the given ID as Done.");
+        System.out.println("  list [all|done|todo|in-progress] - List tasks based on their status. Default is all.");
+        System.out.println("  help                            - Show this help message.");
     }
 }
