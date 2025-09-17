@@ -29,7 +29,7 @@ All tasks are stored in a `tasks.json` file to ensure persistence between progra
 git clone https://github.com/stanislaw-kopec/TaskTrackerCLI.git
 ```
 ```bash
-cd TaskTrackerCLI
+cd TaskTrackerCLI/src
 ```
 2. Compile the project
 ```bash
@@ -68,7 +68,7 @@ java Main mark-done 1
 Update a task description:
 
 ```bash
-java Main update 2 "Learn Spring Boot"
+java Main update 1 "Learn Spring Boot"
 ```
 Project Structure
 ```bash
