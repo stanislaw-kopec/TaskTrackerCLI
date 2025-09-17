@@ -26,7 +26,7 @@ All tasks are stored in a `tasks.json` file to ensure persistence between progra
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/task-manager-cli.git
+git clone https://github.com/stanislaw-kopec/TaskTrackerCLI.git
 ```
 ```bash
 cd task-manager-cli
