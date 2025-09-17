@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "description": "Go for a walk",
+    "status": "Todo",
+    "createdAt": "2024-11-07T15:30:57.924948100",
+    "updatedAt": "2024-11-07T15:30:57.926950900"
+  },
+  {
+    "id": "2",
+    "description": "Clean up the living room",
+    "status": "Todo",
+    "createdAt": "2024-11-08T17:13:36.997289400",
+    "updatedAt": "2024-11-18T18:28:02.234549800"
+  },
+  {
+    "id": "3",
+    "description": "Send a package",
+    "status": "Todo",
+    "createdAt": "2024-11-08T17:14:18.094729900",
+    "updatedAt": "2024-11-08T17:14:18.094729900"
+  }
+]
